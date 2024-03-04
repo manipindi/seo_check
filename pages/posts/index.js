@@ -4,7 +4,6 @@ import { useTina } from "tinacms/dist/react";
 import { client } from "../../tina/__generated__/client";
 
 export default function PostList(props) {
-  // data passes though in production mode and data is updated to the sidebar data in edit-mode
   const { data } = useTina({
     query: props.query,
     variables: props.variables,
@@ -12,7 +11,7 @@ export default function PostList(props) {
   });
   const postsList = data.postConnection.edges;
   return (
-    <Layout>
+    <>
       <h1>Posts</h1>
       <div>
         {postsList.map((post) => (
@@ -23,7 +22,7 @@ export default function PostList(props) {
           </div>
         ))}
       </div>
-    </Layout>
+    </>
   );
 }
 
