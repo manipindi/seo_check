@@ -30,9 +30,9 @@ export const getStaticProps = async (ctx) => {
     relativePath: ctx.params.slug + ".md",
   });
 
-  const dataFromApi = await fetch("http://localhost:3000/api")
+  const dataFromApi = await fetch("https://seo-check-gules.vercel.app/api")
   const response = await dataFromApi.json()
-  console.log(response, "dataFromApi");
+
   return {
     props: {
       data,
