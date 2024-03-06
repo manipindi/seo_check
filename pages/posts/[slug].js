@@ -1,10 +1,8 @@
-import { Layout } from "../../components/Layout";
 import { useTina } from "tinacms/dist/react";
 import { client } from "../../tina/__generated__/client";
 import { useRouter } from "next/router";
 
 export default function Home(props) {
-  // data passes though in production mode and data is updated to the sidebar data in edit-mode
   const router = useRouter();
   console.log(router.isFallback, "router");
   const { data } = useTina({
@@ -12,7 +10,6 @@ export default function Home(props) {
     variables: props.variables,
     data: props.data,
   });
-
   if (router.isFallback) {
     return <div>Loading...</div>;
   }
@@ -20,7 +17,6 @@ export default function Home(props) {
 }
 
 export const getStaticPaths = async () => {
-  const { data } = await client.queries.postConnection();
 
   return {
     paths: [],
@@ -34,6 +30,9 @@ export const getStaticProps = async (ctx) => {
     relativePath: ctx.params.slug + ".md",
   });
 
+  const dataFromApi = await fetch("http://localhost:3000/api")
+  const response = await dataFromApi.json()
+  console.log(response, "dataFromApi");
   return {
     props: {
       data,
